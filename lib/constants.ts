@@ -61,6 +61,18 @@ export const STEP_1_SLIDE = {
   ],
 };
 
+// ─── Print on Top: Step 2 slide ──────────────────────────────────────────────
+
+export const STEP_2_SLIDE = {
+  tag: "05 / The Process",
+  title: "Step 2",
+  subtitle: "Prompting Claude",
+  prompt: "Hi master, read this image and create a print on top for this company",
+  caption:
+    "Once Claude generates the initial print-on-top, you'll have a starting point to manually align it remotely.",
+  note: "Claude tends to align data horizontally very well. Most of the time you just need to tweak the Y axis to get it perfectly placed.",
+};
+
 // ─── Print on Top: Problem / Solution slide ───────────────────────────────────
 
 export const PROBLEM_SOLUTION_SLIDE = {
@@ -135,7 +147,7 @@ export const PRINT_ON_TOP_SLIDES: SlideData[] = [
     tag: "oboda · Print Workarounds",
     title: "Print on Top",
     subtitle:
-      "Skip the on-site visit. A step-by-step guide to implementing print-on-tops remotely using Canva and Claude.",
+      "Skip the on-site visit. A step-by-step guide to implementing print-on-tops remotely using Canva, Claude, and Patience!",
   },
   {
     tag: "01 / The Problem",

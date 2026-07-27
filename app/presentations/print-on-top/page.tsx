@@ -10,6 +10,7 @@ import {
   PROBLEM_SOLUTION_SLIDE,
   REQUIREMENTS_SLIDE,
   STEP_1_SLIDE,
+  STEP_2_SLIDE,
   type Block,
   type TextPart,
 } from "@/lib/constants";
@@ -319,6 +320,87 @@ function Step1Slide() {
   );
 }
 
+// ─── Terminal component ───────────────────────────────────────────────────────
+
+function Terminal({ prompt }: { prompt: string }) {
+  return (
+    <div className="rounded-lg overflow-hidden text-sm font-mono" style={{ background: "#0d1117" }}>
+      {/* Title bar */}
+      <div className="flex items-center gap-1.5 px-4 py-2.5" style={{ background: "#161b22" }}>
+        <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#ff5f57" }} />
+        <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#ffbd2e" }} />
+        <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#28c841" }} />
+        <span className="ml-3 text-xs" style={{ color: "#8b949e" }}>claude</span>
+      </div>
+      {/* Body */}
+      <div className="px-5 py-4 space-y-1">
+        <div className="flex gap-2" style={{ color: "#e6edf3" }}>
+          <span style={{ color: "#28c841" }}>you@claude</span>
+          <span style={{ color: "#8b949e" }}>~</span>
+          <span style={{ color: "#8b949e" }}>$</span>
+          <span className="flex-1">{prompt}</span>
+        </div>
+        {/* Blinking cursor */}
+        <div className="flex gap-2">
+          <span style={{ color: "#28c841" }}>claude</span>
+          <span style={{ color: "#8b949e" }}>~</span>
+          <span style={{ color: "#8b949e" }}>$</span>
+          <motion.span
+            animate={{ opacity: [1, 0] }}
+            transition={{ duration: 0.8, repeat: Infinity, repeatType: "reverse" }}
+            style={{ color: "#e6edf3" }}
+          >
+            ▋
+          </motion.span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 2 slide ─────────────────────────────────────────────────────────────
+
+function Step2Slide() {
+  const { tag, title, subtitle, prompt, caption, note } = STEP_2_SLIDE;
+  return (
+    <div className="space-y-5">
+      <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
+        {tag}
+      </motion.p>
+
+      <div>
+        <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+          {title}
+        </motion.h1>
+        <motion.p variants={slideChild} className="text-sm text-(--muted) mt-1">
+          {subtitle}
+        </motion.p>
+      </div>
+
+      <motion.div variants={slideChild}>
+        <Terminal prompt={prompt} />
+      </motion.div>
+
+      {/* Caption */}
+      <motion.p variants={slideChild} className="text-sm text-(--muted) leading-relaxed">
+        {caption}
+      </motion.p>
+
+      {/* Note */}
+      <motion.div
+        variants={slideChild}
+        className="flex gap-3 pl-3 border-l-2"
+        style={{ borderColor: "var(--accent)" }}
+      >
+        <div>
+          <p className="text-xs font-semibold text-(--accent) uppercase tracking-wider mb-0.5">Note</p>
+          <p className="text-xs text-(--muted) leading-relaxed italic">{note}</p>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── Content slides (from constants) ─────────────────────────────────────────
 
 function ContentSlide({
@@ -366,6 +448,7 @@ const slides: React.ReactNode[] = [
   <ProblemSolutionSlide key="problem" />,
   <RequirementsSlide key="requirements" />,
   <Step1Slide key="step1" />,
+  <Step2Slide key="step2" />,
   ...PRINT_ON_TOP_SLIDES.slice(1).map((slide, i) => (
     <ContentSlide key={`css-${i}`} slide={slide} />
   )),

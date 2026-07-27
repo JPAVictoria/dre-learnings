@@ -9,6 +9,7 @@ import {
   PRINT_ON_TOP_SLIDES,
   PROBLEM_SOLUTION_SLIDE,
   REQUIREMENTS_SLIDE,
+  STEP_1_SLIDE,
   type Block,
   type TextPart,
 } from "@/lib/constants";
@@ -282,6 +283,53 @@ function RequirementsSlide() {
   );
 }
 
+// ─── Step 1 slide ─────────────────────────────────────────────────────────────
+
+function Step1Slide() {
+  const { tag, title, subtitle, videoSrc, steps } = STEP_1_SLIDE;
+  return (
+    <div className="space-y-5">
+      <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
+        {tag}
+      </motion.p>
+
+      <div>
+        <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+          {title}
+        </motion.h1>
+        <motion.p variants={slideChild} className="text-sm text-(--muted) mt-1">
+          {subtitle}
+        </motion.p>
+      </div>
+
+      <motion.div variants={slideChild} className="space-y-4">
+        {/* Video */}
+        <div className="rounded-xl overflow-hidden bg-black border border-(--border)">
+          <video
+            src={videoSrc}
+            className="w-full max-h-52 object-contain"
+            controls
+            playsInline
+            muted
+          />
+        </div>
+
+        {/* Steps — two columns */}
+        <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+          {steps.map((step, i) => (
+            <li key={i} className="flex items-start gap-2.5 text-sm text-(--muted) leading-snug">
+              <span className="shrink-0 w-5 h-5 rounded-full bg-(--hover-bg) border border-(--border) text-(--accent) text-[10px] font-bold flex items-center justify-center mt-0.5">
+                {i + 1}
+              </span>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── Content slides (from constants) ─────────────────────────────────────────
 
 function ContentSlide({
@@ -328,6 +376,7 @@ const slides: React.ReactNode[] = [
   <TitleSlide key="title" />,
   <ProblemSolutionSlide key="problem" />,
   <RequirementsSlide key="requirements" />,
+  <Step1Slide key="step1" />,
   ...PRINT_ON_TOP_SLIDES.slice(1).map((slide, i) => (
     <ContentSlide key={`css-${i}`} slide={slide} />
   )),

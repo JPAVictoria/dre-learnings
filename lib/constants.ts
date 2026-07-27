@@ -44,6 +44,23 @@ export const PRESENTATIONS_LIST = [
   },
 ];
 
+// ─── Print on Top: Step 1 slide ──────────────────────────────────────────────
+
+export const STEP_1_SLIDE = {
+  tag: "04 / The Process",
+  title: "Step 1",
+  subtitle: "Setting up your Canva workspace",
+  videoSrc: "/step%201.mov",
+  steps: [
+    "Open Canva and create a new design — two ways to do this, both shown in the video.",
+    'Click "Custom size", set the unit to inches, then enter the width and height.',
+    'In your workspace, click "Uploads" in the sidebar and upload the client\'s file.',
+    "Click the uploaded image, then double-tap your trackpad to reveal more options.",
+    'Select "Set image as background."',
+    "You're ready for Step 2.",
+  ],
+};
+
 // ─── Print on Top: Problem / Solution slide ───────────────────────────────────
 
 export const PROBLEM_SOLUTION_SLIDE = {

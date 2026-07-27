@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronLeft } from "lucide-react";
 
 type Slide = {
@@ -61,7 +61,11 @@ const slides: Slide[] = [
     body: (
       <div className="space-y-4">
         <p className="text-sm text-[var(--muted)]">
-          Everything starts here. Styles inside <code className="text-[var(--text)] bg-[var(--hover-bg)] px-1.5 py-0.5 rounded text-xs">@media print</code> only apply when the user triggers a print.
+          Everything starts here. Styles inside{" "}
+          <code className="text-[var(--text)] bg-[var(--hover-bg)] px-1.5 py-0.5 rounded text-xs">
+            @media print
+          </code>{" "}
+          only apply when the user triggers a print.
         </p>
         <Code>{`@media print {
   /* Hide UI chrome */
@@ -89,7 +93,13 @@ const slides: Slide[] = [
     body: (
       <div className="space-y-4">
         <p className="text-sm text-[var(--muted)]">
-          This is the core insight. In screen context, <code className="text-[var(--text)] bg-[var(--hover-bg)] px-1.5 py-0.5 rounded text-xs">position: fixed</code> anchors to the viewport. In print context, it anchors to the <em>page</em> — and <strong className="text-[var(--text)]">repeats on every printed page</strong>.
+          This is the core insight. In screen context,{" "}
+          <code className="text-[var(--text)] bg-[var(--hover-bg)] px-1.5 py-0.5 rounded text-xs">
+            position: fixed
+          </code>{" "}
+          anchors to the viewport. In print context, it anchors to the{" "}
+          <em>page</em> — and{" "}
+          <strong className="text-[var(--text)]">repeats on every printed page</strong>.
         </p>
         <Code>{`@media print {
   .page-header {
@@ -117,7 +127,11 @@ const slides: Slide[] = [
     body: (
       <div className="space-y-4">
         <p className="text-sm text-[var(--muted)]">
-          Combine <code className="text-[var(--text)] bg-[var(--hover-bg)] px-1.5 py-0.5 rounded text-xs">position: fixed</code> with a high z-index and low opacity to stamp a watermark on every page.
+          Combine{" "}
+          <code className="text-[var(--text)] bg-[var(--hover-bg)] px-1.5 py-0.5 rounded text-xs">
+            position: fixed
+          </code>{" "}
+          with a high z-index and low opacity to stamp a watermark on every page.
         </p>
         <Code>{`@media print {
   .watermark {
@@ -271,10 +285,35 @@ h2, h3 { break-after: avoid; }
   },
 ];
 
-const variants = {
-  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 40 : -40 }),
-  center: { opacity: 1, x: 0 },
-  exit: (dir: number) => ({ opacity: 0, x: dir > 0 ? -40 : 40 }),
+const ease = [0.25, 0.1, 0.25, 1] as const;
+
+const easeIn = [0.55, 0, 1, 0.45] as const;
+
+// Slide container: translates + staggerChildren
+const slideContainer: Variants = {
+  enter: (dir: number) => ({ opacity: 0, x: dir > 0 ? 50 : -50 }),
+  center: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.38,
+      ease,
+      staggerChildren: 0.07,
+      delayChildren: 0.04,
+    },
+  },
+  exit: (dir: number) => ({
+    opacity: 0,
+    x: dir > 0 ? -50 : 50,
+    transition: { duration: 0.22, ease: easeIn },
+  }),
+};
+
+// Each child inside the slide fades up
+const slideChild: Variants = {
+  enter: { opacity: 0, y: 14 },
+  center: { opacity: 1, y: 0, transition: { duration: 0.4, ease } },
+  exit: { opacity: 0, transition: { duration: 0.12 } },
 };
 
 export default function PrintOnTop() {
@@ -296,9 +335,19 @@ export default function PrintOnTop() {
   }, [index]);
 
   const slide = slides[index];
+  const progress = (index + 1) / slides.length;
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "var(--bg)" }}>
+      {/* Animated progress bar */}
+      <div className="relative h-[2px] w-full bg-[var(--border)]">
+        <motion.div
+          className="absolute left-0 top-0 h-full bg-[var(--accent)]"
+          animate={{ width: `${progress * 100}%` }}
+          transition={{ duration: 0.4, ease }}
+        />
+      </div>
+
       {/* Top bar */}
       <header className="flex items-center justify-between px-8 py-5 border-b border-[var(--border)]">
         <Link
@@ -308,9 +357,22 @@ export default function PrintOnTop() {
           <ChevronLeft size={14} />
           Presentations
         </Link>
-        <span className="text-xs text-[var(--muted)]">
-          {index + 1} / {slides.length}
-        </span>
+
+        {/* Animated slide counter */}
+        <div className="overflow-hidden h-4 flex items-center">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={index}
+              initial={{ y: dir > 0 ? 10 : -10, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: dir > 0 ? -10 : 10, opacity: 0 }}
+              transition={{ duration: 0.2, ease }}
+              className="text-xs text-[var(--muted)] block"
+            >
+              {index + 1} / {slides.length}
+            </motion.span>
+          </AnimatePresence>
+        </div>
       </header>
 
       {/* Slide area */}
@@ -320,27 +382,40 @@ export default function PrintOnTop() {
             <motion.div
               key={index}
               custom={dir}
-              variants={variants}
+              variants={slideContainer}
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ duration: 0.3, ease: "easeInOut" }}
               className="space-y-6"
             >
               {slide.tag && (
-                <p className="text-xs text-[var(--muted)] tracking-widest uppercase">
+                <motion.p
+                  variants={slideChild}
+                  className="text-xs text-[var(--muted)] tracking-widest uppercase"
+                >
                   {slide.tag}
-                </p>
+                </motion.p>
               )}
-              <h1 className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+
+              <motion.h1
+                variants={slideChild}
+                className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug"
+              >
                 {slide.title}
-              </h1>
+              </motion.h1>
+
               {slide.subtitle && (
-                <p className="text-[var(--muted)] text-base leading-relaxed max-w-lg">
+                <motion.p
+                  variants={slideChild}
+                  className="text-[var(--muted)] text-base leading-relaxed max-w-lg"
+                >
                   {slide.subtitle}
-                </p>
+                </motion.p>
               )}
-              {slide.body && <div>{slide.body}</div>}
+
+              {slide.body && (
+                <motion.div variants={slideChild}>{slide.body}</motion.div>
+              )}
             </motion.div>
           </AnimatePresence>
         </div>
@@ -348,36 +423,48 @@ export default function PrintOnTop() {
 
       {/* Navigation */}
       <footer className="flex items-center justify-between px-8 py-5 border-t border-[var(--border)]">
-        {/* Dot indicators */}
+        {/* Morphing dot indicators */}
         <div className="flex items-center gap-1.5">
           {slides.map((_, i) => (
-            <button
+            <motion.button
               key={i}
               onClick={() => go(i)}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
-                i === index
-                  ? "bg-[var(--accent)] w-4"
-                  : "bg-[var(--border)] hover:bg-[var(--muted)]"
-              }`}
+              animate={{
+                width: i === index ? 16 : 6,
+                backgroundColor:
+                  i === index ? "var(--accent)" : "var(--border)",
+              }}
+              whileHover={{
+                backgroundColor:
+                  i === index ? "var(--accent)" : "var(--muted)",
+              }}
+              transition={{ type: "spring", stiffness: 500, damping: 35 }}
+              className="h-1.5 rounded-full"
             />
           ))}
         </div>
 
         <div className="flex items-center gap-2">
-          <button
+          <motion.button
             onClick={() => go(index - 1)}
             disabled={index === 0}
-            className="p-2 rounded-md text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--hover-bg)] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ duration: 0.15 }}
+            className="p-2 rounded-md text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--hover-bg)] disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ArrowLeft size={16} />
-          </button>
-          <button
+          </motion.button>
+          <motion.button
             onClick={() => go(index + 1)}
             disabled={index === slides.length - 1}
-            className="p-2 rounded-md text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--hover-bg)] disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ duration: 0.15 }}
+            className="p-2 rounded-md text-[var(--muted)] hover:text-[var(--text)] hover:bg-[var(--hover-bg)] disabled:opacity-30 disabled:cursor-not-allowed"
           >
             <ArrowRight size={16} />
-          </button>
+          </motion.button>
         </div>
       </footer>
     </div>

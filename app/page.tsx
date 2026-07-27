@@ -19,38 +19,82 @@ const sections = [
   },
 ];
 
+const ease = [0.25, 0.1, 0.25, 1] as const;
+
 export default function Home() {
   return (
-    <main className="min-h-screen grid grid-cols-1 md:grid-cols-2">
+    <main className="min-h-screen grid grid-cols-1 md:grid-cols-2 relative overflow-hidden">
+      {/* Animated center divider */}
+      <motion.div
+        className="hidden md:block absolute left-1/2 top-0 w-px bg-[var(--border)]"
+        initial={{ height: 0 }}
+        animate={{ height: "100%" }}
+        transition={{ duration: 1, delay: 0.2, ease }}
+      />
+
       {sections.map((s, i) => (
         <motion.div
           key={s.href}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: i * 0.12, duration: 0.6 }}
           className="h-full"
+          initial="rest"
+          animate="rest"
+          whileHover="hover"
         >
+          {/* Hover fill that rises from the bottom */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none bg-[var(--surface)]"
+            style={{ transformOrigin: "bottom", zIndex: 0 }}
+            variants={{
+              rest: { scaleY: 0 },
+              hover: { scaleY: 1, transition: { duration: 0.5, ease } },
+            }}
+          />
+
           <Link
             href={s.href}
-            className="group flex flex-col justify-between h-full min-h-[50dvh] md:min-h-screen p-10 md:p-16 border-b md:border-b-0 md:border-r border-[var(--border)] last:border-0 transition-colors duration-300 hover:bg-[var(--surface)]"
+            className="relative z-10 flex flex-col justify-between h-full min-h-[50dvh] md:min-h-screen p-10 md:p-16 border-b md:border-b-0 md:border-r border-[var(--border)] last:border-0"
           >
-            <span className="text-xs text-[var(--muted)] tracking-widest uppercase">
+            {/* Meta */}
+            <motion.span
+              className="text-xs text-[var(--muted)] tracking-widest uppercase"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1 + 0.1, duration: 0.5, ease }}
+            >
               {s.meta}
-            </span>
+            </motion.span>
 
+            {/* Title + arrow */}
             <div>
-              <div className="flex items-end gap-2 mb-3">
-                <h2 className="text-5xl font-semibold tracking-tight text-[var(--text)] transition-transform duration-300 group-hover:translate-x-1">
+              <motion.div
+                className="flex items-end gap-2 mb-3"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 + 0.2, duration: 0.55, ease }}
+              >
+                <h2 className="text-5xl font-semibold tracking-tight text-[var(--text)]">
                   {s.label}
                 </h2>
-                <ArrowUpRight
-                  size={20}
-                  className="mb-1.5 text-[var(--muted)] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                />
-              </div>
-              <p className="text-[var(--muted)] text-sm leading-relaxed max-w-[260px]">
+                <motion.span
+                  className="mb-1.5 text-[var(--muted)]"
+                  variants={{
+                    rest: { opacity: 0, x: -6, y: 6 },
+                    hover: { opacity: 1, x: 0, y: 0, transition: { duration: 0.25, ease } },
+                  }}
+                >
+                  <ArrowUpRight size={20} />
+                </motion.span>
+              </motion.div>
+
+              {/* Description */}
+              <motion.p
+                className="text-[var(--muted)] text-sm leading-relaxed max-w-[260px]"
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 + 0.32, duration: 0.5, ease }}
+              >
                 {s.description}
-              </p>
+              </motion.p>
             </div>
           </Link>
         </motion.div>

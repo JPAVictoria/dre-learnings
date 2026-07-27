@@ -169,6 +169,7 @@ function TitleSlide() {
           src="/beyonce.png"
           alt="Beyoncé — Love on Top"
           fill
+          sizes="(min-width: 768px) 220px, 180px"
           className="object-cover object-top"
           priority
         />

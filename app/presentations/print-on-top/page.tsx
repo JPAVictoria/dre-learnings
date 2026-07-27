@@ -7,6 +7,8 @@ import PresentationViewer, {
 } from "@/components/PresentationViewer";
 import {
   PRINT_ON_TOP_SLIDES,
+  PROBLEM_SOLUTION_SLIDE,
+  REQUIREMENTS_SLIDE,
   type Block,
   type TextPart,
 } from "@/lib/constants";
@@ -186,6 +188,100 @@ function TitleSlide() {
   );
 }
 
+// ─── Problem / Solution slide ─────────────────────────────────────────────────
+
+function ProblemSolutionSlide() {
+  const { tag, problem, solution } = PROBLEM_SOLUTION_SLIDE;
+  return (
+    <div className="space-y-8">
+      <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
+        {tag}
+      </motion.p>
+
+      <motion.div variants={slideChild} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Problem */}
+        <div className="space-y-4">
+          <p className="text-xs font-semibold tracking-widest uppercase" style={{ color: "#b34040" }}>
+            {problem.heading}
+          </p>
+          <ul className="space-y-3">
+            {problem.items.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-(--muted) leading-relaxed">
+                <span className="mt-1.5 w-1 h-1 rounded-full shrink-0" style={{ backgroundColor: "#b34040" }} />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Solution */}
+        <div className="space-y-4">
+          <p className="text-xs font-semibold text-(--accent) tracking-widest uppercase">
+            {solution.heading}
+          </p>
+          <ul className="space-y-3">
+            {solution.items.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-(--muted) leading-relaxed">
+                <span className="mt-1.5 w-1 h-1 rounded-full bg-(--accent) shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+// ─── Requirements slide ───────────────────────────────────────────────────────
+
+function RequirementsSlide() {
+  const { tag, title, you, client } = REQUIREMENTS_SLIDE;
+  return (
+    <div className="space-y-8">
+      <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
+        {tag}
+      </motion.p>
+
+      <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+        {title}
+      </motion.h1>
+
+      <motion.div variants={slideChild} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Your toolkit */}
+        <div className="space-y-4">
+          <p className="text-xs font-semibold text-(--text) tracking-widest uppercase opacity-60">
+            {you.heading}
+          </p>
+          <ul className="space-y-3">
+            {you.items.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-(--muted) leading-relaxed">
+                <span className="mt-1.5 w-1 h-1 rounded-full bg-(--accent) shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* From client */}
+        <div className="space-y-4">
+          <p className="text-xs font-semibold text-(--text) tracking-widest uppercase opacity-60">
+            {client.heading}
+          </p>
+          <ul className="space-y-3">
+            {client.items.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-(--muted) leading-relaxed">
+                <span className="mt-1.5 w-1 h-1 rounded-full bg-(--accent) shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── Content slides (from constants) ─────────────────────────────────────────
 
 function ContentSlide({
@@ -230,8 +326,10 @@ function ContentSlide({
 
 const slides: React.ReactNode[] = [
   <TitleSlide key="title" />,
+  <ProblemSolutionSlide key="problem" />,
+  <RequirementsSlide key="requirements" />,
   ...PRINT_ON_TOP_SLIDES.slice(1).map((slide, i) => (
-    <ContentSlide key={i} slide={slide} />
+    <ContentSlide key={`css-${i}`} slide={slide} />
   )),
 ];
 

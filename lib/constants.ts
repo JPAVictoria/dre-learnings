@@ -11,7 +11,7 @@ export const HOME_SECTIONS = [
   {
     href: "/blogs",
     label: "Blogs",
-    description: "Thoughts, notes, and learnings written down.",
+    description: "Some things I just wanna share, but tsaka na",
     meta: "0 posts",
   },
   {
@@ -43,6 +43,51 @@ export const PRESENTATIONS_LIST = [
     slides: 9,
   },
 ];
+
+// ─── Print on Top: Problem / Solution slide ───────────────────────────────────
+
+export const PROBLEM_SOLUTION_SLIDE = {
+  tag: "02 / Overview",
+  problem: {
+    heading: "The Problem",
+    items: [
+      "Implementing print-on-tops requires an on-site visit.",
+      "Consumes significant development time.",
+      "Adds unnecessary logistics costs for the client.",
+    ],
+  },
+  solution: {
+    heading: "The Solution",
+    items: [
+      "Canva handles the layout and visual export.",
+      "Claude generates and refines the logic.",
+      "A healthy dose of patience ties it together.",
+    ],
+  },
+};
+
+// ─── Print on Top: Requirements slide ────────────────────────────────────────
+
+export const REQUIREMENTS_SLIDE = {
+  tag: "03 / Requirements",
+  title: "What You Need",
+  you: {
+    heading: "Your toolkit",
+    items: [
+      "Canva — the free tier is sufficient.",
+      "Claude — for generation and logic.",
+      "A generous amount of patience.",
+    ],
+  },
+  client: {
+    heading: "From the client",
+    items: [
+      "Print dimensions (width × height in inches).",
+      "A scanned image of the print-on-top design.",
+      "Any conditional logic, if applicable.",
+    ],
+  },
+};
 
 // ─── Slide content types ──────────────────────────────────────────────────────
 

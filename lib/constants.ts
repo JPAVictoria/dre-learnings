@@ -132,10 +132,10 @@ export type SlideData = {
 
 export const PRINT_ON_TOP_SLIDES: SlideData[] = [
   {
-    tag: "CSS · Print Media",
+    tag: "oboda · Print Workarounds",
     title: "Print on Top",
     subtitle:
-      "Making content persist across every printed page using CSS — headers, watermarks, page breaks, and the @page rule.",
+      "Skip the on-site visit. A step-by-step guide to implementing print-on-tops remotely using Canva and Claude.",
   },
   {
     tag: "01 / The Problem",

@@ -99,9 +99,9 @@ function TitleSlide() {
       <div className="flex-1">
         <motion.p
           variants={slideChild}
-          className="text-xs text-(--muted) tracking-widest uppercase mb-8"
+          className="text-xs text-(--muted) tracking-widest mb-8"
         >
-          CSS · Print Media
+          oboda · Print Workarounds
         </motion.p>
 
         {/* The key visual: Print / ~~Love~~ on Top */}
@@ -111,7 +111,6 @@ function TitleSlide() {
             variants={slideChild}
             className="flex items-center gap-2 pl-1"
           >
-            <span className="text-base text-(--accent) opacity-60">✎</span>
             <span
               className="text-2xl font-bold tracking-tight"
               style={{ color: "var(--accent)" }}
@@ -156,8 +155,8 @@ function TitleSlide() {
           variants={slideChild}
           className="text-sm text-(--muted) leading-relaxed max-w-xs"
         >
-          Making content persist across every printed page — headers,
-          watermarks, page breaks, and the @page rule.
+          Skip the on-site visit. A step-by-step guide to implementing
+          print-on-tops remotely using Canva and Claude.
         </motion.p>
       </div>
 

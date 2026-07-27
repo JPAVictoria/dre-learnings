@@ -163,7 +163,7 @@ function TitleSlide() {
       {/* Right: Beyoncé */}
       <motion.div
         variants={slideChild}
-        className="relative w-45 md:w-55 h-65 md:h-80 rounded-xl overflow-hidden shrink-0 self-end"
+        className="relative w-45 md:w-55 h-65 md:h-80 shrink-0 self-end"
       >
         <Image
           src="/beyonce.png"
@@ -173,17 +173,6 @@ function TitleSlide() {
           className="object-cover object-top"
           priority
         />
-        {/* Subtle green overlay */}
-        <div
-          className="absolute inset-0 mix-blend-color opacity-20 rounded-xl"
-          style={{ backgroundColor: "var(--accent)" }}
-        />
-        {/* Bottom caption */}
-        <div className="absolute bottom-0 left-0 right-0 px-3 py-2 bg-linear-to-t from-black/60 to-transparent">
-          <p className="text-white text-[10px] tracking-widest uppercase opacity-80">
-            Love on Top · Beyoncé
-          </p>
-        </div>
       </motion.div>
     </div>
   );

@@ -156,7 +156,7 @@ function TitleSlide() {
           className="text-sm text-(--muted) leading-relaxed max-w-xs"
         >
           Skip the on-site visit. A step-by-step guide to implementing
-          print-on-tops remotely using Canva and Claude.
+          print-on-tops remotely using Canva, Claude and Patience!
         </motion.p>
       </div>
 
@@ -304,7 +304,7 @@ function Step1Slide() {
         </div>
 
         {/* Steps — two columns */}
-        <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+        <ol className="flex flex-col gap-2.5">
           {steps.map((step, i) => (
             <li key={i} className="flex items-start gap-2.5 text-sm text-(--muted) leading-snug">
               <span className="shrink-0 w-5 h-5 rounded-full bg-(--hover-bg) border border-(--border) text-(--accent) text-[10px] font-bold flex items-center justify-center mt-0.5">

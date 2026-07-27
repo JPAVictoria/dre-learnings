@@ -53,7 +53,7 @@ export const PROBLEM_SOLUTION_SLIDE = {
     items: [
       "Implementing print-on-tops requires an on-site visit.",
       "Consumes significant development time.",
-      "Adds unnecessary logistics costs for the client.",
+      "Increases logistics costs.",
     ],
   },
   solution: {
@@ -61,7 +61,7 @@ export const PROBLEM_SOLUTION_SLIDE = {
     items: [
       "Canva handles the layout and visual export.",
       "Claude generates and refines the logic.",
-      "A healthy dose of patience ties it together.",
+      "A healthy dose of patience to align data remotely",
     ],
   },
 };
@@ -84,7 +84,7 @@ export const REQUIREMENTS_SLIDE = {
     items: [
       "Print dimensions (width × height in inches).",
       "A scanned image of the print-on-top design.",
-      "Any conditional logic, if applicable.",
+      "Any conditional logic, if requested.",
     ],
   },
 };

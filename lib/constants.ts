@@ -37,8 +37,8 @@ export const PRESENTATIONS_LIST = [
     slug: "print-on-top",
     title: "Print on Top",
     description:
-      "CSS techniques for making content persist across every printed page — fixed headers, watermarks, page breaks, and the @page rule.",
-    tags: ["CSS", "Print Media"],
+      "How to implement print-on-tops remotely 101",
+    tags: ["Canva", "Claude"],
     date: "Jul 2025",
     slides: 9,
   },

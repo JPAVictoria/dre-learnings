@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import { BLOGS_PAGE } from "@/lib/constants";
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -29,22 +30,19 @@ export default function Blogs() {
         </Link>
       </motion.div>
 
-      <motion.h1
-        variants={fadeUp}
-        className="text-4xl font-semibold tracking-tight mb-3"
-      >
-        Blogs
+      <motion.h1 variants={fadeUp} className="text-4xl font-semibold tracking-tight mb-3">
+        {BLOGS_PAGE.heading}
       </motion.h1>
 
       <motion.p variants={fadeUp} className="text-[var(--muted)] text-sm mb-16">
-        Nothing here yet.
+        {BLOGS_PAGE.empty}
       </motion.p>
 
       <motion.div
         variants={fadeUp}
         className="border-t border-[var(--border)] pt-10 text-[var(--muted)] text-sm"
       >
-        Posts will appear here as they're written.
+        {BLOGS_PAGE.placeholder}
       </motion.div>
     </motion.main>
   );

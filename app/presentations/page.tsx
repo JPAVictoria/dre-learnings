@@ -3,18 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-
-const presentations = [
-  {
-    slug: "print-on-top",
-    title: "Print on Top",
-    description:
-      "CSS techniques for making content persist across every printed page — fixed headers, watermarks, page breaks, and the @page rule.",
-    tags: ["CSS", "Print Media"],
-    date: "Jul 2025",
-    slides: 9,
-  },
-];
+import { PRESENTATIONS_LIST } from "@/lib/constants";
 
 const ease = [0.25, 0.1, 0.25, 1] as const;
 
@@ -41,24 +30,17 @@ export default function Presentations() {
         </Link>
       </motion.div>
 
-      <motion.h1
-        variants={fadeUp}
-        className="text-4xl font-semibold tracking-tight mb-2"
-      >
+      <motion.h1 variants={fadeUp} className="text-4xl font-semibold tracking-tight mb-2">
         Presentations
       </motion.h1>
 
       <motion.p variants={fadeUp} className="text-[var(--muted)] text-sm mb-12">
-        {presentations.length} deck{presentations.length !== 1 ? "s" : ""}
+        {PRESENTATIONS_LIST.length} deck{PRESENTATIONS_LIST.length !== 1 ? "s" : ""}
       </motion.p>
 
       <motion.div variants={fadeUp} className="divide-y divide-[var(--border)]">
-        {presentations.map((p) => (
-          <motion.div
-            key={p.slug}
-            whileHover={{ x: 6 }}
-            transition={{ duration: 0.2, ease }}
-          >
+        {PRESENTATIONS_LIST.map((p) => (
+          <motion.div key={p.slug} whileHover={{ x: 6 }} transition={{ duration: 0.2, ease }}>
             <Link
               href={`/presentations/${p.slug}`}
               className="group flex items-start justify-between gap-8 py-8 -mx-4 px-4 rounded-sm"
@@ -88,10 +70,7 @@ export default function Presentations() {
 
               <motion.span
                 className="mt-1 text-[var(--muted)] shrink-0"
-                variants={{
-                  rest: { opacity: 0, x: -6 },
-                  hover: { opacity: 1, x: 0 },
-                }}
+                variants={{ rest: { opacity: 0, x: -6 }, hover: { opacity: 1, x: 0 } }}
                 initial="rest"
                 animate="rest"
                 whileHover="hover"

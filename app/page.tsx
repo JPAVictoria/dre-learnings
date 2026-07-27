@@ -1,25 +1,11 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-
-const sections = [
-  {
-    href: "/blogs",
-    label: "Blogs",
-    description: "Thoughts, notes, and learnings written down.",
-    meta: "0 posts",
-  },
-  {
-    href: "/presentations",
-    label: "Presentations",
-    description: "Visual walkthroughs of topics I've explored.",
-    meta: "1 deck",
-  },
-];
+import { HOME_SECTIONS } from "@/lib/constants";
 
 export default function Home() {
   return (
     <main className="min-h-screen grid grid-cols-1 md:grid-cols-2">
-      {sections.map((s) => (
+      {HOME_SECTIONS.map((s) => (
         <Link
           key={s.href}
           href={s.href}

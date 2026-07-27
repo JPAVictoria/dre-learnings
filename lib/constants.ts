@@ -61,6 +61,24 @@ export const STEP_1_SLIDE = {
   ],
 };
 
+// ─── Print on Top: Step 3 slide ──────────────────────────────────────────────
+
+export const STEP_3_SLIDE = {
+  tag: "06 / The Process",
+  title: "Step 3",
+  subtitle: "Applying the alignment in Canva",
+  videoSrc: "/third%20step.mov",
+  steps: [
+    "Open the preview of your generated print-on-top.",
+    "Snip and screenshot it — it doesn't have to be pixel-perfect at the corners, a small padding difference is fine.",
+    "Drag or upload your screenshotted print-on-top into your Canva design workspace.",
+    "Click and drag the image to the top-left corner of your workspace.",
+    "Point your cursor to the bottom-right resize handle (the circle one).",
+    "Hold Shift and drag the resize handle all the way to the bottom-right of the workspace.",
+    "Set transparency to 50% using the icon at the top to check alignment.",
+  ],
+};
+
 // ─── Print on Top: Step 2 slide ──────────────────────────────────────────────
 
 export const STEP_2_SLIDE = {

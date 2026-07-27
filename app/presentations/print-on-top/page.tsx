@@ -11,6 +11,7 @@ import {
   REQUIREMENTS_SLIDE,
   STEP_1_SLIDE,
   STEP_2_SLIDE,
+  STEP_3_SLIDE,
   type Block,
   type TextPart,
 } from "@/lib/constants";
@@ -401,6 +402,51 @@ function Step2Slide() {
   );
 }
 
+// ─── Step 3 slide ─────────────────────────────────────────────────────────────
+
+function Step3Slide() {
+  const { tag, title, subtitle, videoSrc, steps } = STEP_3_SLIDE;
+  return (
+    <div className="space-y-5">
+      <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
+        {tag}
+      </motion.p>
+
+      <div>
+        <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+          {title}
+        </motion.h1>
+        <motion.p variants={slideChild} className="text-sm text-(--muted) mt-1">
+          {subtitle}
+        </motion.p>
+      </div>
+
+      <motion.div variants={slideChild} className="space-y-4">
+        <div className="rounded-xl overflow-hidden bg-black border border-(--border)">
+          <video
+            src={videoSrc}
+            className="w-full max-h-52 object-contain"
+            controls
+            playsInline
+            muted
+          />
+        </div>
+
+        <ol className="flex flex-col gap-2.5">
+          {steps.map((step, i) => (
+            <li key={i} className="flex items-start gap-2.5 text-sm text-(--muted) leading-snug">
+              <span className="shrink-0 w-5 h-5 rounded-full bg-(--hover-bg) border border-(--border) text-(--accent) text-[10px] font-bold flex items-center justify-center mt-0.5">
+                {i + 1}
+              </span>
+              {step}
+            </li>
+          ))}
+        </ol>
+      </motion.div>
+    </div>
+  );
+}
+
 // ─── Content slides (from constants) ─────────────────────────────────────────
 
 function ContentSlide({
@@ -449,6 +495,7 @@ const slides: React.ReactNode[] = [
   <RequirementsSlide key="requirements" />,
   <Step1Slide key="step1" />,
   <Step2Slide key="step2" />,
+  <Step3Slide key="step3" />,
   ...PRINT_ON_TOP_SLIDES.slice(1).map((slide, i) => (
     <ContentSlide key={`css-${i}`} slide={slide} />
   )),

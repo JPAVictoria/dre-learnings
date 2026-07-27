@@ -18,7 +18,10 @@ export default function Presentations() {
       className="min-h-screen px-10 md:px-16 py-12"
       initial="hidden"
       animate="visible"
-      variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}
+      variants={{
+        hidden: {},
+        visible: { transition: { staggerChildren: 0.08 } },
+      }}
     >
       <motion.div variants={fadeUp}>
         <Link
@@ -30,17 +33,25 @@ export default function Presentations() {
         </Link>
       </motion.div>
 
-      <motion.h1 variants={fadeUp} className="text-4xl font-semibold tracking-tight mb-2">
+      <motion.h1
+        variants={fadeUp}
+        className="text-4xl font-semibold tracking-tight mb-2"
+      >
         Presentations
       </motion.h1>
 
       <motion.p variants={fadeUp} className="text-[var(--muted)] text-sm mb-12">
-        {PRESENTATIONS_LIST.length} deck{PRESENTATIONS_LIST.length !== 1 ? "s" : ""}
+        {PRESENTATIONS_LIST.length} deck
+        {PRESENTATIONS_LIST.length !== 1 ? "s" : ""}
       </motion.p>
 
       <motion.div variants={fadeUp} className="divide-y divide-[var(--border)]">
         {PRESENTATIONS_LIST.map((p) => (
-          <motion.div key={p.slug} whileHover={{ x: 6 }} transition={{ duration: 0.2, ease }}>
+          <motion.div
+            key={p.slug}
+            whileHover={{ x: 6 }}
+            transition={{ duration: 0.2, ease }}
+          >
             <Link
               href={`/presentations/${p.slug}`}
               className="group flex items-start justify-between gap-8 py-8 -mx-4 px-4 rounded-sm"
@@ -50,7 +61,9 @@ export default function Presentations() {
                   <h2 className="text-lg font-medium text-[var(--text)] group-hover:underline underline-offset-4">
                     {p.title}
                   </h2>
-                  <span className="text-xs text-[var(--muted)] shrink-0">{p.date}</span>
+                  <span className="text-xs text-[var(--muted)] shrink-0">
+                    {p.date}
+                  </span>
                 </div>
                 <p className="text-sm text-[var(--muted)] leading-relaxed mb-3 max-w-lg">
                   {p.description}
@@ -64,13 +77,18 @@ export default function Presentations() {
                       {tag}
                     </span>
                   ))}
-                  <span className="text-xs text-[var(--muted)] ml-1">{p.slides} slides</span>
+                  <span className="text-xs text-[var(--muted)] ml-1">
+                    {p.slides} slides
+                  </span>
                 </div>
               </div>
 
               <motion.span
                 className="mt-1 text-[var(--muted)] shrink-0"
-                variants={{ rest: { opacity: 0, x: -6 }, hover: { opacity: 1, x: 0 } }}
+                variants={{
+                  rest: { opacity: 0, x: -6 },
+                  hover: { opacity: 1, x: 0 },
+                }}
                 initial="rest"
                 animate="rest"
                 whileHover="hover"

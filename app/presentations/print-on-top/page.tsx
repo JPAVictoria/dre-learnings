@@ -2,8 +2,14 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import PresentationViewer, { slideChild } from "@/components/PresentationViewer";
-import { PRINT_ON_TOP_SLIDES, type Block, type TextPart } from "@/lib/constants";
+import PresentationViewer, {
+  slideChild,
+} from "@/components/PresentationViewer";
+import {
+  PRINT_ON_TOP_SLIDES,
+  type Block,
+  type TextPart,
+} from "@/lib/constants";
 
 // ─── Shared slide primitives ─────────────────────────────────────────────────
 
@@ -16,7 +22,10 @@ const Code = ({ children }: { children: string }) => (
 const Bullet = ({ items }: { items: string[] }) => (
   <ul className="space-y-3">
     {items.map((item) => (
-      <li key={item} className="flex items-start gap-3 text-sm text-(--muted) leading-relaxed">
+      <li
+        key={item}
+        className="flex items-start gap-3 text-sm text-(--muted) leading-relaxed"
+      >
         <span className="mt-1.5 w-1 h-1 rounded-full bg-(--accent) shrink-0" />
         {item}
       </li>
@@ -28,11 +37,19 @@ function renderParts(parts: TextPart[]) {
   return parts.map((p, i) => {
     if (p.t === "code")
       return (
-        <code key={i} className="text-(--text) bg-(--hover-bg) px-1.5 py-0.5 rounded text-xs">
+        <code
+          key={i}
+          className="text-(--text) bg-(--hover-bg) px-1.5 py-0.5 rounded text-xs"
+        >
           {p.v}
         </code>
       );
-    if (p.t === "bold") return <strong key={i} className="text-(--text)">{p.v}</strong>;
+    if (p.t === "bold")
+      return (
+        <strong key={i} className="text-(--text)">
+          {p.v}
+        </strong>
+      );
     if (p.t === "em") return <em key={i}>{p.v}</em>;
     return <span key={i}>{p.v}</span>;
   });
@@ -41,16 +58,27 @@ function renderParts(parts: TextPart[]) {
 function renderBlock(block: Block, i: number) {
   switch (block.type) {
     case "text":
-      return <p key={i} className="text-sm text-(--muted)">{block.text}</p>;
+      return (
+        <p key={i} className="text-sm text-(--muted)">
+          {block.text}
+        </p>
+      );
     case "richText":
-      return <p key={i} className="text-sm text-(--muted)">{renderParts(block.parts)}</p>;
+      return (
+        <p key={i} className="text-sm text-(--muted)">
+          {renderParts(block.parts)}
+        </p>
+      );
     case "code":
       return <Code key={i}>{block.content}</Code>;
     case "bullets":
       return <Bullet key={i} items={block.items} />;
     case "footnote":
       return (
-        <p key={i} className="text-sm text-(--muted) pt-2 border-t border-(--border)">
+        <p
+          key={i}
+          className="text-sm text-(--muted) pt-2 border-t border-(--border)"
+        >
           {block.text}
         </p>
       );
@@ -63,7 +91,7 @@ const ease = [0.25, 0.1, 0.25, 1] as const;
 
 function TitleSlide() {
   return (
-    <div className="flex flex-col md:flex-row items-end gap-10 md:gap-16 min-h-105">
+    <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 min-h-105">
       {/* Left: typography */}
       <div className="flex-1">
         <motion.p
@@ -80,9 +108,9 @@ function TitleSlide() {
             variants={slideChild}
             className="flex items-center gap-2 pl-1"
           >
-            <span className="text-xs text-(--accent) opacity-60">✎</span>
+            <span className="text-base text-(--accent) opacity-60">✎</span>
             <span
-              className="text-xl font-bold tracking-tight"
+              className="text-2xl font-bold tracking-tight"
               style={{ color: "var(--accent)" }}
             >
               Print
@@ -90,7 +118,10 @@ function TitleSlide() {
           </motion.div>
 
           {/* ~~Love~~ on Top */}
-          <motion.div variants={slideChild} className="flex items-baseline flex-wrap gap-x-3 gap-y-1">
+          <motion.div
+            variants={slideChild}
+            className="flex items-baseline flex-wrap gap-x-3 gap-y-1"
+          >
             {/* Crossed-out Love */}
             <span className="relative inline-block leading-none">
               <span
@@ -122,7 +153,8 @@ function TitleSlide() {
           variants={slideChild}
           className="text-sm text-(--muted) leading-relaxed max-w-xs"
         >
-          Making content persist across every printed page — headers, watermarks, page breaks, and the @page rule.
+          Making content persist across every printed page — headers,
+          watermarks, page breaks, and the @page rule.
         </motion.p>
       </div>
 
@@ -156,19 +188,32 @@ function TitleSlide() {
 
 // ─── Content slides (from constants) ─────────────────────────────────────────
 
-function ContentSlide({ slide }: { slide: (typeof PRINT_ON_TOP_SLIDES)[number] }) {
+function ContentSlide({
+  slide,
+}: {
+  slide: (typeof PRINT_ON_TOP_SLIDES)[number];
+}) {
   return (
     <div className="space-y-6">
       {slide.tag && (
-        <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
+        <motion.p
+          variants={slideChild}
+          className="text-xs text-(--muted) tracking-widest uppercase"
+        >
           {slide.tag}
         </motion.p>
       )}
-      <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+      <motion.h1
+        variants={slideChild}
+        className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug"
+      >
         {slide.title}
       </motion.h1>
       {slide.subtitle && (
-        <motion.p variants={slideChild} className="text-(--muted) text-base leading-relaxed max-w-lg">
+        <motion.p
+          variants={slideChild}
+          className="text-(--muted) text-base leading-relaxed max-w-lg"
+        >
           {slide.subtitle}
         </motion.p>
       )}

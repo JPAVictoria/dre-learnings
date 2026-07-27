@@ -74,7 +74,7 @@ export default function PresentationViewer({
       </div>
 
       {/* Header */}
-      <header className="flex items-center justify-between px-8 py-5 border-b border-(--border)">
+      <header className="flex items-center justify-between px-8 py-5">
         <Link
           href={backHref}
           className="inline-flex items-center gap-1.5 text-sm text-(--muted) hover:text-(--text) transition-colors duration-200"
@@ -118,26 +118,7 @@ export default function PresentationViewer({
       </div>
 
       {/* Footer */}
-      <footer className="flex items-center justify-between px-8 py-5 border-t border-(--border)">
-        {/* Dot indicators */}
-        <div className="flex items-center gap-1.5">
-          {slides.map((_, i) => (
-            <motion.button
-              key={i}
-              onClick={() => go(i)}
-              animate={{
-                width: i === index ? 16 : 6,
-                backgroundColor: i === index ? "var(--accent)" : "var(--border)",
-              }}
-              whileHover={{
-                backgroundColor: i === index ? "var(--accent)" : "var(--muted)",
-              }}
-              transition={{ type: "spring", stiffness: 500, damping: 35 }}
-              className="h-1.5 rounded-full"
-            />
-          ))}
-        </div>
-
+      <footer className="flex items-center justify-end px-8 py-5">
         {/* Bottom-right arrows */}
         <div className="flex items-center gap-1">
           <motion.button

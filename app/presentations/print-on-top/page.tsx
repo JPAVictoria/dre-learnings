@@ -382,13 +382,13 @@ function FinalSlide() {
       </motion.p>
 
       <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
-        🎉 {tada}
+        {tada}
       </motion.h1>
 
-      {/* Side-by-side images */}
+      {/* Side-by-side images — landscape */}
       <motion.div variants={slideChild} className="grid grid-cols-2 gap-4">
         {images.map((src, i) => (
-          <div key={i} className="relative aspect-[3/4] w-full bg-(--hover-bg)">
+          <div key={i} className="relative aspect-video w-full bg-(--hover-bg)">
             <Image
               src={src}
               alt={`Final product ${i + 1}`}

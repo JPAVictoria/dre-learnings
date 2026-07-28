@@ -67,7 +67,7 @@ export const FINAL_SLIDE = {
   tag: "Final Product",
   tada: "Here is the finished product!",
   images: ["/Final%201.png", "/Final%202.png"],
-  caption: "A feedback from a client at Baguio City.",
+  caption: "A feedback from MedReach, a client based in Baguio City.",
 };
 
 // ─── Print on Top: Step 3 slide ──────────────────────────────────────────────

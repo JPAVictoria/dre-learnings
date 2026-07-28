@@ -118,7 +118,26 @@ export default function PresentationViewer({
       </div>
 
       {/* Footer */}
-      <footer className="flex items-center justify-end px-8 py-5">
+      <footer className="flex items-center justify-between px-8 py-5">
+        {/* Back to start — only on last slide */}
+        <div className="w-32">
+          <AnimatePresence>
+            {index === slides.length - 1 && (
+              <motion.button
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -8 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => go(0)}
+                className="text-xs text-(--muted) hover:text-(--text) transition-colors duration-150 flex items-center gap-1.5"
+              >
+                <ArrowLeft size={12} />
+                Back to start
+              </motion.button>
+            )}
+          </AnimatePresence>
+        </div>
+
         {/* Bottom-right arrows */}
         <div className="flex items-center gap-1">
           <motion.button

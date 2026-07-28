@@ -6,89 +6,13 @@ import PresentationViewer, {
   slideChild,
 } from "@/components/PresentationViewer";
 import {
-  PRINT_ON_TOP_SLIDES,
   PROBLEM_SOLUTION_SLIDE,
   REQUIREMENTS_SLIDE,
   STEP_1_SLIDE,
   STEP_2_SLIDE,
   STEP_3_SLIDE,
-  type Block,
-  type TextPart,
+  FINAL_SLIDE,
 } from "@/lib/constants";
-
-// ─── Shared slide primitives ─────────────────────────────────────────────────
-
-const Code = ({ children }: { children: string }) => (
-  <pre className="bg-(--hover-bg) border border-(--border) rounded-md px-5 py-4 text-sm font-mono text-(--text) overflow-x-auto leading-relaxed whitespace-pre">
-    {children}
-  </pre>
-);
-
-const Bullet = ({ items }: { items: string[] }) => (
-  <ul className="space-y-3">
-    {items.map((item) => (
-      <li
-        key={item}
-        className="flex items-start gap-3 text-sm text-(--muted) leading-relaxed"
-      >
-        <span className="mt-1.5 w-1 h-1 rounded-full bg-(--accent) shrink-0" />
-        {item}
-      </li>
-    ))}
-  </ul>
-);
-
-function renderParts(parts: TextPart[]) {
-  return parts.map((p, i) => {
-    if (p.t === "code")
-      return (
-        <code
-          key={i}
-          className="text-(--text) bg-(--hover-bg) px-1.5 py-0.5 rounded text-xs"
-        >
-          {p.v}
-        </code>
-      );
-    if (p.t === "bold")
-      return (
-        <strong key={i} className="text-(--text)">
-          {p.v}
-        </strong>
-      );
-    if (p.t === "em") return <em key={i}>{p.v}</em>;
-    return <span key={i}>{p.v}</span>;
-  });
-}
-
-function renderBlock(block: Block, i: number) {
-  switch (block.type) {
-    case "text":
-      return (
-        <p key={i} className="text-sm text-(--muted)">
-          {block.text}
-        </p>
-      );
-    case "richText":
-      return (
-        <p key={i} className="text-sm text-(--muted)">
-          {renderParts(block.parts)}
-        </p>
-      );
-    case "code":
-      return <Code key={i}>{block.content}</Code>;
-    case "bullets":
-      return <Bullet key={i} items={block.items} />;
-    case "footnote":
-      return (
-        <p
-          key={i}
-          className="text-sm text-(--muted) pt-2 border-t border-(--border)"
-        >
-          {block.text}
-        </p>
-      );
-  }
-}
 
 // ─── Title slide ─────────────────────────────────────────────────────────────
 
@@ -447,42 +371,38 @@ function Step3Slide() {
   );
 }
 
-// ─── Content slides (from constants) ─────────────────────────────────────────
+// ─── Final slide ──────────────────────────────────────────────────────────────
 
-function ContentSlide({
-  slide,
-}: {
-  slide: (typeof PRINT_ON_TOP_SLIDES)[number];
-}) {
+function FinalSlide() {
+  const { tag, tada, images, caption } = FINAL_SLIDE;
   return (
-    <div className="space-y-6">
-      {slide.tag && (
-        <motion.p
-          variants={slideChild}
-          className="text-xs text-(--muted) tracking-widest uppercase"
-        >
-          {slide.tag}
-        </motion.p>
-      )}
-      <motion.h1
-        variants={slideChild}
-        className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug"
-      >
-        {slide.title}
+    <div className="space-y-7">
+      <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
+        {tag}
+      </motion.p>
+
+      <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+        🎉 {tada}
       </motion.h1>
-      {slide.subtitle && (
-        <motion.p
-          variants={slideChild}
-          className="text-(--muted) text-base leading-relaxed max-w-lg"
-        >
-          {slide.subtitle}
-        </motion.p>
-      )}
-      {slide.blocks && (
-        <motion.div variants={slideChild} className="space-y-4">
-          {slide.blocks.map((block, i) => renderBlock(block, i))}
-        </motion.div>
-      )}
+
+      {/* Side-by-side images */}
+      <motion.div variants={slideChild} className="grid grid-cols-2 gap-4">
+        {images.map((src, i) => (
+          <div key={i} className="relative aspect-[3/4] w-full overflow-hidden">
+            <Image
+              src={src}
+              alt={`Final product ${i + 1}`}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover object-top"
+            />
+          </div>
+        ))}
+      </motion.div>
+
+      <motion.p variants={slideChild} className="text-sm text-(--muted) leading-relaxed">
+        {caption}
+      </motion.p>
     </div>
   );
 }
@@ -496,9 +416,7 @@ const slides: React.ReactNode[] = [
   <Step1Slide key="step1" />,
   <Step2Slide key="step2" />,
   <Step3Slide key="step3" />,
-  ...PRINT_ON_TOP_SLIDES.slice(1).map((slide, i) => (
-    <ContentSlide key={`css-${i}`} slide={slide} />
-  )),
+  <FinalSlide key="final" />,
 ];
 
 export default function PrintOnTop() {

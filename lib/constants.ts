@@ -61,6 +61,15 @@ export const STEP_1_SLIDE = {
   ],
 };
 
+// ─── Print on Top: Final slide ───────────────────────────────────────────────
+
+export const FINAL_SLIDE = {
+  tag: "Final Product",
+  tada: "Here is the finished product!",
+  images: ["/Final%201.png", "/Final%202.png"],
+  caption: "A feedback from a client at Baguio City.",
+};
+
 // ─── Print on Top: Step 3 slide ──────────────────────────────────────────────
 
 export const STEP_3_SLIDE = {

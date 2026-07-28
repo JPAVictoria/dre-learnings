@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     siteName: "dre.learnings",
     images: [
       {
-        url: "/Final 1.png",
+        url: "/thumbnail.png",
         width: 1200,
         height: 630,
         alt: "Print on Top — final output",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     title: "Print on Top",
     description:
       "Skip the on-site visit. A step-by-step guide to implementing print-on-tops remotely using Canva and Claude.",
-    images: ["/Final 1.png"],
+    images: ["/thumbnail.png"],
   },
 };
 

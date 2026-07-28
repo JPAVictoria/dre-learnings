@@ -388,13 +388,13 @@ function FinalSlide() {
       {/* Side-by-side images */}
       <motion.div variants={slideChild} className="grid grid-cols-2 gap-4">
         {images.map((src, i) => (
-          <div key={i} className="relative aspect-[3/4] w-full overflow-hidden">
+          <div key={i} className="relative aspect-[3/4] w-full bg-(--hover-bg)">
             <Image
               src={src}
               alt={`Final product ${i + 1}`}
               fill
               sizes="(min-width: 768px) 50vw, 100vw"
-              className="object-cover object-top"
+              className="object-contain"
             />
           </div>
         ))}

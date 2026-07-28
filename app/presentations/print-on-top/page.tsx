@@ -376,33 +376,34 @@ function Step3Slide() {
 function FinalSlide() {
   const { tag, tada, images, caption } = FINAL_SLIDE;
   return (
-    <div className="space-y-7">
+    <div className="space-y-4">
       <motion.p variants={slideChild} className="text-xs text-(--muted) tracking-widest uppercase">
         {tag}
       </motion.p>
 
-      <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
-        {tada}
-      </motion.h1>
+      <div>
+        <motion.h1 variants={slideChild} className="text-3xl md:text-4xl font-semibold tracking-tight leading-snug">
+          {tada}
+        </motion.h1>
+        <motion.p variants={slideChild} className="text-sm text-(--muted) leading-relaxed mt-1">
+          {caption}
+        </motion.p>
+      </div>
 
-      {/* Side-by-side images — landscape */}
-      <motion.div variants={slideChild} className="grid grid-cols-2 gap-4">
+      {/* Stacked images — full width */}
+      <motion.div variants={slideChild} className="flex flex-col gap-3">
         {images.map((src, i) => (
-          <div key={i} className="relative aspect-video w-full bg-(--hover-bg)">
+          <div key={i} className="relative aspect-video w-full">
             <Image
               src={src}
               alt={`Final product ${i + 1}`}
               fill
-              sizes="(min-width: 768px) 50vw, 100vw"
+              sizes="100vw"
               className="object-contain"
             />
           </div>
         ))}
       </motion.div>
-
-      <motion.p variants={slideChild} className="text-sm text-(--muted) leading-relaxed">
-        {caption}
-      </motion.p>
     </div>
   );
 }
